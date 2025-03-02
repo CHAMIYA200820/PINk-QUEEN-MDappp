@@ -1,20 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHAMINDU</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>CHAMINDU</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: black;
+      font-weight: bold;
+      font-family: 'Press Start 2P', cursive;
+      overflow: hidden;
+      animation: rgbAnimation 5s infinite alternate;
+    }
+
+    @keyframes rgbAnimation {
+      0% { background: rgb(255, 0, 0); }
+      25% { background: rgb(0, 255, 0); }
+      50% { background: rgb(0, 0, 255); }
+      75% { background: rgb(255, 255, 0); }
+      100% { background: rgb(255, 0, 255); }
+    }
+
+    .matrix {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.imgur.com/bld5fUD.gif') repeat;
+      opacity: 0.3;
+      z-index: 1;
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.7);
+    }
+
+    .btn {
+      --color: pink;
+      --hover-color: yellow;
+      width: 250px;
+      padding: 20px;
+      border-radius: 6px;
+      border: 2px solid var(--color);
+      background: rgba(0, 0, 0, 0.6);
+      color: var(--color);
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 15px;
+      text-transform: uppercase;
+      transition: all 0.3s ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:hover {
+      background: var(--color);
+      color: var(--hover-color);
+      box-shadow: 0 0 10px var(--color), 0 0 20px var(--hover-color);
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .music-btn {
+      background: #ff1493;
+      color: white;
+      font-size: 16px;
+    }
+
+    .music-btn:hover {
+      background: #ff69b4;
+    }
+
+    .music-player {
+      display: none;
+    }
+
+    h1 {
+      font-size: 60px;
+      animation: slideText 6s linear infinite alternate;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(0, 255, 0, 0.8), 0 0 30px rgba(0, 0, 255, 0.8);
+      margin: 0;
+    }
+
+    @keyframes slideText {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(100vw); }
+    }
+
+    p {
+      font-size: 20px;
+      color: white;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>CHAMINDU</h1>
-        <p>Cyberpunk Tech Zone</p>
-        <input type="file" id="songFile" accept="audio/*" class="btn" onchange="uploadSong(event)">
-        <button onclick="stopMusic()" class="btn">Stop Music</button>
-        <button onclick="window.open('/chat-ai')" class="btn">Chat with AI</button>
-    </div>
 
-    <script src="script.js"></script>
+  <div class="matrix"></div>
+
+  <div class="container">
+    <!-- "CHAMINDU" with sliding animation -->
+    <h1>CHAMINDU</h1>
+    <p>Cyberpunk Tech Zone</p>
+
+    <!-- Centered Buttons Container -->
+    <div class="btn-container"></div>
+
+    <!-- Upload song button -->
+    <input type="file" id="songFile" accept="audio/*" class="btn" onchange="uploadSong(event)">
+    <button onclick="stopMusic()" class="btn">Stop Music</button>
+  </div>
+
+  <audio id="uploadedSong" class="music-player" loop>
+    <source id="songSource" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Upload and play the selected song
+    function uploadSong(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const audio = document.getElementById("uploadedSong");
+        const source = document.getElementById("songSource");
+        source.src = URL.createObjectURL(file);
+        audio.load(); // Load the new file
+        audio.play(); // Automatically play the uploaded song
+      }
+    }
+
+    // Stop the music
+    function stopMusic() {
+      const audio = document.getElementById("uploadedSong");
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  </script>
+
 </body>
 </html>
