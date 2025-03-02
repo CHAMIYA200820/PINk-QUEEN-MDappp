@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-// Serve static files from the 'public' directory
+// Static files serving from 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Send the index.html when the root URL is accessed
