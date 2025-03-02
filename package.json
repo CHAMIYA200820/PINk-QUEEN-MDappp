@@ -1,12 +1,12 @@
 {
   "name": "chamindu-web",
   "version": "1.0.0",
-  "description": "A web app with file upload and chat functionality",
+  "description": "Cyberpunk Tech Zone",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.18.2"
   }
 }
