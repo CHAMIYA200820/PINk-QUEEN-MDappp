@@ -131,11 +131,12 @@
     <p>Cyberpunk Tech Zone</p>
 
     <!-- Centered Buttons Container -->
-    <div class="btn-container"></div>
+    <div class="btn-container">
+        <input type="file" id="songFile" accept="audio/*" class="btn" onchange="uploadSong(event)">
+        <button onclick="stopMusic()" class="btn">Stop Music</button>
+        <button onclick="openChat()" class="btn">Open Chat</button> <!-- New Chat button -->
+    </div>
 
-    <!-- Upload song button -->
-    <input type="file" id="songFile" accept="audio/*" class="btn" onchange="uploadSong(event)">
-    <button onclick="stopMusic()" class="btn">Stop Music</button>
   </div>
 
   <audio id="uploadedSong" class="music-player" loop>
@@ -160,6 +161,14 @@
       const audio = document.getElementById("uploadedSong");
       audio.pause();
       audio.currentTime = 0;
+    }
+
+    // Function to open the Chat AI
+    function openChat() {
+      const chatWindow = window.open('https://your-chatbot-url.com', 'Chat AI', 'width=600,height=400');
+      if (!chatWindow) {
+        alert('Chat window could not be opened. Please check your pop-up blocker settings.');
+      }
     }
   </script>
 
